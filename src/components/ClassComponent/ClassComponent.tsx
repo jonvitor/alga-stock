@@ -3,14 +3,14 @@ import React from 'react'
 class ClassComponent extends React.Component {
 
     state = {
-        name : 'mundo'
+        name: 'mundo'
     }
 
     render() {
         return <div>
             <p>{this.state.name}</p>
             <button onClick={() => {
-                this.setState({name: 'João'})
+                this.setState({ name: 'João' })
             }}>Click me</button>
         </div>
     }
