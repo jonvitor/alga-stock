@@ -7,7 +7,7 @@ class ClassComponent extends React.Component {
     }
 
     state = {
-        name: 'mundo'
+        name: 'Test Class Component'
     }
 
     componentDidMount(): void {
