@@ -17,12 +17,14 @@ const Products: Product[] = [
         name: 'Water',
         price: 0.99,
         stock: 10
-    },{
+    },
+    {
         id: 3,
         name: 'Detergent',
         price: 0.75,
         stock: 54
-    },{
+    },
+    {
         id: 4,
         name: 'Milk 1L',
         price: 1.50,
