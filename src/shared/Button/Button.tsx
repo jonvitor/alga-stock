@@ -4,7 +4,7 @@ import './Button.css'
 declare interface ButtonProps {
     content?: string;
     onClick?: () => void;
-    children: string;
+    children: any;
     appendIcon?: JSX.Element
 }
 
