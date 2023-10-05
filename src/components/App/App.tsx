@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import './App.css';
 import Header from '../Header';
 import Container from '../../shared/Container';
@@ -15,7 +16,8 @@ const headers: TableHeader[] = [
 
 function App() {
   const [products, setProducts] = useState(Products)
-  const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>(products[0])
+  const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>()
+
   const handleProductSubmit = (product: ProductCreator) => {
     setProducts([
       ...products,
@@ -24,6 +26,14 @@ function App() {
         ...product
       }
     ])
+  }
+
+  const handleProductDetail = (product: Product) => {
+    Swal.fire(
+      'Detalhes do produto',
+      `${product.name} custa ${product.price}. Temos ${product.stock} itens no estoque`,
+      'info'
+    )
   }
 
   const handleProductUpdate = (newProduct: Product) => {
@@ -36,6 +46,35 @@ function App() {
     setUpdatingProduct(undefined)
   }
 
+  const handleProductEdit = (product: Product) => {
+    setUpdatingProduct(product)
+  }
+
+  const deleteProduct = (id: number) => {
+    setProducts(products.filter(product => product.id !== id))
+  }
+
+  const handleProductDelete = (product: Product) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#09f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: `Yes, delete ${product.name}!`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(product.id)
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
   return (
     <div className="App">
       <Header title='AlgaStock' />
@@ -44,9 +83,9 @@ function App() {
           data={products}
           headers={headers}
           enableActions
-          onDelete={console.log}
-          onDetail={console.log}
-          onEdit={console.log}
+          onDelete={handleProductDelete}
+          onDetail={handleProductDetail}
+          onEdit={handleProductEdit}
         />
         <ProductForm
           form={updatingProduct} 
